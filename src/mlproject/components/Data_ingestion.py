@@ -3,7 +3,7 @@ import sys
 from src.mlproject.exception import CustomException
 from src.mlproject.logger import logging
 import pandas as pd
-from src.mlproject.utils import read_sql_data
+# from src.mlproject.utils import read_sql_data
 from sklearn.model_selection import train_test_split
 
 from dataclasses import dataclass
@@ -22,9 +22,9 @@ class DataIngestion:
 
     def initiate_dataingestion(self):
         try:
-            df=read_sql_data()
+            df=pd.read_csv("artifacts/raw.csv")
             logging.info("reading completed from database")
-            os.makedirs(os.path.dirname(self.ingestion_config.train.csv),exist_ok=True)
+            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
 
             df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
 
